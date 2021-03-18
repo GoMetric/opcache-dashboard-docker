@@ -17,9 +17,7 @@ RUN \
         nodejs \
         yarn && \
     # update certs
-    update-ca-certificates
-
-RUN \ 
+    update-ca-certificates && \
     # download source
     git clone https://github.com/GoMetric/opcache-dashboard && \
     cd opcache-dashboard && \
@@ -29,6 +27,7 @@ RUN \
     make install && \
     # clear
     make clean && \
+    yarn cache clean --all && \
     cd .. && rm -rf opcache-dashboard && \
     apk del .build-deps
 
