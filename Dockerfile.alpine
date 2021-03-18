@@ -1,0 +1,32 @@
+FROM alpine:3.13.2
+
+ARG VERSION
+
+RUN apk update && \
+    # install requirements
+    apk add --no-cache --virtual .build-deps \
+        ca-certificates \
+        make \
+        wget \
+        git \
+        curl \
+        go \
+        musl-dev \
+        nodejs \
+        yarn && \
+    # update certs
+    update-ca-certificates && \
+    # download source
+    git clone https://github.com/GoMetric/opcache-dashboard && \
+    cd opcache-dashboard && \
+    git checkout -b build ${VERSION} \
+    # make and install source
+    make build && \
+    make install && \
+    # clear
+    make clean && \
+    cd .. && rm -rf opcache-dashboard && \
+    apk del .build-deps
+
+# start service
+ENTRYPOINT ["/usr/local/bin/opcache-dashboard"]
