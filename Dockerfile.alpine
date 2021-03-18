@@ -2,11 +2,13 @@ FROM alpine:3.13.2
 
 ARG VERSION
 
-RUN apk update && \
+RUN \
     # install requirements
+    apk update && \
     apk add --no-cache --virtual .build-deps \
         ca-certificates \
         make \
+        bash \
         wget \
         git \
         curl \
@@ -15,11 +17,13 @@ RUN apk update && \
         nodejs \
         yarn && \
     # update certs
-    update-ca-certificates && \
+    update-ca-certificates
+
+RUN \ 
     # download source
     git clone https://github.com/GoMetric/opcache-dashboard && \
     cd opcache-dashboard && \
-    git checkout -b build ${VERSION} \
+    git checkout tags/${VERSION} -b build  && \
     # make and install source
     make build && \
     make install && \
