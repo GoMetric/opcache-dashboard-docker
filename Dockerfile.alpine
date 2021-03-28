@@ -23,7 +23,7 @@ RUN \
     cd opcache-dashboard && \
     git checkout tags/${VERSION} -b build  && \
     # make and install source
-    make build && \
+    make build-prod && \
     make install && \
     # clear
     make clean && \
