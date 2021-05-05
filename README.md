@@ -30,5 +30,5 @@ make docker-publish
 To publish image to hub you need to be logged in:
 
 ```
-make docker-ligin
+make docker-login
 ```
