@@ -17,7 +17,7 @@ docker-build:
 		--tag gometric/opcache-dashboard:$(GITHUB_LATEST_VERSION) \
 		--tag gometric/opcache-dashboard:latest \
 		--build-arg VERSION=$(GITHUB_LATEST_VERSION) \
-		-f ./Dockerfile.alpine .
+		-f ./Dockerfile .
 
 
 docker-publish: docker-login
